@@ -1,9 +1,9 @@
-import './App.css'
+import './index.css'
 
 function App() {
   return (
     <>
-      Hello World.
+      Hello World
 
     </>
   )
