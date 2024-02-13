@@ -18,9 +18,12 @@
   ],
   "license": "UNLICENSED",
   "devDependencies": {
+    "autoprefixer": "^10.4.17",
     "husky": "^9.0.10",
     "lint-staged": "^15.2.1",
-    "prettier": "^3.2.4"
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.4",
+    "tailwindcss": "^3.4.1"
   },
   "lint-staged": {
     "*.{ts,tsx,scss,md}": "prettier --write"
