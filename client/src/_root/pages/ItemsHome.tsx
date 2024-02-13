@@ -7,8 +7,10 @@ const ItemsHome = () => {
     <div className="flex">
       <LeftMenu />
       <div>
-        <div className="h2-semibold" style={{ marginLeft: '40px', marginTop: '50px' }}>Items to Package</div>
+        <div className="h2-semibold" style={{ marginLeft: '40px', marginTop: '50px' }}>Items to Package
         <ItemsTable />
+        </div>
+        
       </div>
     </div>
   )
