@@ -1,45 +1,83 @@
+import React, { useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Item', width: 300 },
   { field: 'firstName', headerName: 'Description', width: 400 },
-  { field: 'lastName', headerName: 'SO#', width: 130 },
-  { field: 'age', headerName: 'Qty', width: 130 },
+  { field: 'txn_number', headerName: 'SO#', width: 130 },
+  { field: 'qty', headerName: 'Qty', width: 110 },
   {
-    field: 'fullName',
+    field: 'shipAddress',
     headerName: 'Ship Address',
-    description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 250,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
   { field: 'shipBy', headerName: 'Ship By', width: 120 }
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, shipBy: '2024-02-15' },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, shipBy: '2024-02-20' },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45, shipBy: '2024-02-18' },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16, shipBy: '2024-02-17' },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null, shipBy: '2024-02-16' },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150, shipBy: '2024-02-19' },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44, shipBy: '2024-02-21' },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36, shipBy: '2024-02-22' },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, shipBy: '2024-02-23' },
+  { id: 'Sample item 1', txn_number: 1234, shipAddress: '198 North Sea Ave, Burnaby', qty: 35, shipBy: '2024-02-15' },
+  { id: 'Sample item 2', txn_number: 2354, shipAddress: '2400 Boundary Road, Burnaby', qty: 42, shipBy: '2024-02-20' },
+  { id: 'Sample item 3', txn_number: 3457, shipAddress: '20216 98th Ave, Langley', qty: 45, shipBy: '2024-02-18' },
+  { id: 'Sample item 4', txn_number: 6786, shipAddress: '4230 Yew Street, Vancouver', qty: 16, shipBy: '2024-02-17' },
+  { id: 'Sample item 5', txn_number: 3263, shipAddress: '12-4970 Polkey Road, Duncan', qty: 1, shipBy: '2024-02-16' },
+  { id: 'Sample item 6', txn_number: 8642, shipAddress: '450 Denman Street, Vancouver', qty: 150, shipBy: '2024-02-19' },
+  { id: 'Sample item 7', txn_number: 1342, shipAddress: '96 North Bend Street, Coquitlam', qty: 44, shipBy: '2024-02-21' },
+  { id: 'Sample item 8', txn_number: 6795, shipAddress: '320 Seymour Blvd, North Vancouver', qty: 36, shipBy: '2024-02-22' },
+  { id: 'Sample item 9', txn_number: 3781, shipAddress: '110 - 6191 Westminster Hwy, Richmond', qty: 65, shipBy: '2024-02-23' },
+  { id: 'Sample item 1', txn_number: 1234, shipAddress: '198 North Sea Ave, Burnaby', qty: 35, shipBy: '2024-02-15' },
+  { id: 'Sample item 2', txn_number: 2354, shipAddress: '2400 Boundary Road, Burnaby', qty: 42, shipBy: '2024-02-20' },
+  { id: 'Sample item 3', txn_number: 3457, shipAddress: '20216 98th Ave, Langley', qty: 45, shipBy: '2024-02-18' },
+  { id: 'Sample item 4', txn_number: 6786, shipAddress: '4230 Yew Street, Vancouver', qty: 16, shipBy: '2024-02-17' },
+  { id: 'Sample item 5', txn_number: 3263, shipAddress: '12-4970 Polkey Road, Duncan', qty: 1, shipBy: '2024-02-16' },
+  { id: 'Sample item 6', txn_number: 8642, shipAddress: '450 Denman Street, Vancouver', qty: 150, shipBy: '2024-02-19' },
+  { id: 'Sample item 7', txn_number: 1342, shipAddress: '96 North Bend Street, Coquitlam', qty: 44, shipBy: '2024-02-21' },
+  { id: 'Sample item 8', txn_number: 6795, shipAddress: '320 Seymour Blvd, North Vancouver', qty: 36, shipBy: '2024-02-22' },
+  { id: 'Sample item 9', txn_number: 3781, shipAddress: '110 - 6191 Westminster Hwy, Richmond', qty: 65, shipBy: '2024-02-23' },
 ];
 
 export default function DataTable() {
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+  };
+
+  const filteredRows = rows.filter(row =>
+    Object.values(row).some(value =>
+      value?.toString().toLowerCase().includes(searchText.toLowerCase())
+    )
+  );
+
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        autoHeight
-        disableSelectionOnClick
-        pageSize={5}
-        rowsPerPageOptions={[5, 10]}
-      />
+    <div className="container">
+      <div className="header-container">
+        <h2 className="h2-semibold">Items to Package</h2>
+      </div>
+      <div className="search-container">
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchText}
+          onChange={handleSearchTextChange}
+          className="search-field"
+        />
+        <Button className="plus-button">
+          <img src="/assets/icons/plus-solid-white.svg" alt="add" className="plus-icon" />
+          ITEM
+        </Button>
+      </div>
+      <div className="data-grid-container">
+        <DataGrid
+          rows={filteredRows}
+          columns={columns}
+          autoHeight
+          disableRowSelectionOnClick
+        />
+      </div>
     </div>
   );
+  
 }

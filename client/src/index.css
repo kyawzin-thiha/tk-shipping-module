@@ -8,176 +8,181 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* Left Menu */
-.left-menu {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 200px;
-  background-color: #f6f6f6;
-  border-radius: 10px;
+
+/* TYPOGRAPHY */
+.h1-bold {
+  @apply text-[36px] font-bold leading-[140%] tracking-tighter;
+}
+
+.h1-semibold {
+  @apply text-[36px] font-semibold leading-[140%] tracking-tighter;
+}
+
+.h2-bold {
+  @apply text-[30px] font-bold leading-[140%] tracking-tighter;
+}
+
+.h2-semibold {
+  @apply text-[30px] font-semibold leading-[140%] tracking-tighter;
+  color: #0F172A;
+  letter-spacing: -0.75%;
+}
+
+.h3-bold {
+  @apply text-[24px] font-bold leading-[140%] tracking-tighter;
+}
+
+.base-semibold {
+  @apply text-[16px] font-semibold leading-[140%] tracking-tighter;
+}
+
+.base-medium {
+  @apply text-[16px] font-medium leading-[140%];
+}
+
+.base-regular {
+  @apply text-[16px] font-normal leading-[140%];
+}
+
+.body-bold {
+  @apply text-[15px] font-bold leading-[140%];
+}
+
+.body-medium {
+  @apply text-[15px] font-medium leading-[140%];
+}
+
+.small-semibold {
+  @apply text-[14px] font-semibold leading-[140%] tracking-tighter;
+}
+
+.small-medium {
+  @apply text-[14px] font-medium leading-[140%];
+}
+
+.small-regular {
+  @apply text-[13px] font-normal leading-[140%];
+}
+
+.subtle-semibold {
+  @apply text-[12px] font-semibold leading-[140%];
+}
+
+.tiny-medium {
+  @apply text-[10px] font-medium leading-[140%];
+}
+
+
+/* UTILITIES */
+.invert-white {
+  @apply invert brightness-0 transition;
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.flex-start {
+  @apply flex justify-start items-center;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #09090a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #5c5c7b;
+  border-radius: 50px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7878a3;
+}
+
+.common-container {
+  @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
+}
+
+
+/* LEFT SIDEBAR MENU */
+.leftsidebar {
+  @apply hidden md:flex flex-col justify-between min-w-[220px] bg-gray-100;
+  width: 220px;
+  height: 97vh; 
   margin: 10px;
-  padding: 20px; 
+  background-color: #F6F6F6;
+  border-radius: 10px;
+  padding: 20px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto;
-  width: 180px; 
-  height: auto;
+.leftsidebar .menu-button {
+  @apply flex items-center;
+  transition: background-color 0.1s ease;
+  padding: 15px 12px;
+  border-radius: 7px;
 }
 
-/* User Profile - Left Menu */
-.user-profile {
+.leftsidebar .menu-button:hover {
+  background-color: #C8C8C8; 
+}
+
+.leftsidebar hr {
+  margin: 16px 0;
+  border-color: #A8A8A8; 
+}
+
+.menu-button-icon {
+  @apply h-5 w-5 mr-4 ml-2;
+}
+
+
+/* TABLE STYLING */
+.container {
+  height: 500px;
+  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
-.profile-circle {
-  width: 40px;
-  height: 40px;
-  background-color: #6A91ED; 
-  border-radius: 50%;
+.header-container {
+  margin-top: 60px;
+  margin-bottom: 50px;
+}
+
+.search-container {
+  margin-bottom: 16px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 16px;
-  margin-right: 10px;
+  justify-content: space-between;
 }
 
-.user-details p {
-  margin: 0;
+.search-field {
+  margin-right: 16px;
 }
 
-@layer utilities {
-  /* TYPOGRAPHY */
-  .h1-bold {
-    @apply text-[36px] font-bold leading-[140%] tracking-tighter;
-  }
+.plus-button {
+  background-color: #0F172A !important;
+  color: white !important;
+  padding-left: 22px !important;
+  padding-right: 25px !important;
+}
 
-  .h1-semibold {
-    @apply text-[36px] font-semibold leading-[140%] tracking-tighter;
-  }
+.plus-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-right: 0.5rem;
+}
 
-  .h2-bold {
-    @apply text-[30px] font-bold leading-[140%] tracking-tighter;
-  }
-
-  .h2-semibold {
-    @apply text-[30px] font-semibold leading-[140%] tracking-tighter;
-    color: #0F172A;
-    letter-spacing: -0.75%;
-  }
-
-  .h3-bold {
-    @apply text-[24px] font-bold leading-[140%] tracking-tighter;
-  }
-
-  .base-semibold {
-    @apply text-[16px] font-semibold leading-[140%] tracking-tighter;
-  }
-
-  .base-medium {
-    @apply text-[16px] font-medium leading-[140%];
-  }
-
-  .base-regular {
-    @apply text-[16px] font-normal leading-[140%];
-  }
-
-  .body-bold {
-    @apply text-[15px] font-bold leading-[140%];
-  }
-
-  .body-medium {
-    @apply text-[15px] font-medium leading-[140%];
-  }
-
-  .small-semibold {
-    @apply text-[14px] font-semibold leading-[140%] tracking-tighter;
-  }
-
-  .small-medium {
-    @apply text-[14px] font-medium leading-[140%];
-  }
-
-  .small-regular {
-    @apply text-[13px] font-normal leading-[140%];
-  }
-
-  .subtle-semibold {
-    @apply text-[12px] font-semibold leading-[140%];
-  }
-
-  .tiny-medium {
-    @apply text-[10px] font-medium leading-[140%];
-  }
-
-  /* UTILITIES */
-  .invert-white {
-    @apply invert brightness-0 transition;
-  }
-
-  .flex-center {
-    @apply flex justify-center items-center;
-  }
-
-  .flex-between {
-    @apply flex justify-between items-center;
-  }
-
-  .flex-start {
-    @apply flex justify-start items-center;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
-    border-radius: 2px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #09090a;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #5c5c7b;
-    border-radius: 50px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #7878a3;
-  }
-
-  .common-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
-  }
-
-  /* Left sidebar */
-  .leftsidebar {
-    @apply hidden md:flex px-6 py-10 flex-col justify-between min-w-[220px] bg-gray-100;
-    width: 220px;
-    height: 97vh; 
-    margin: 10px;
-    background-color: #F6F6F6;
-    border-radius: 10px;
-    padding: 20px;
-  }
-
-  .leftsidebar .menu-button {
-    transition: background-color 0.1s ease;
-    padding: 15px 12px;
-    border-radius: 10px;
-  }
-  
-  .leftsidebar .menu-button:hover {
-    background-color: #C8C8C8; 
-  }
-  
-  .leftsidebar hr {
-    margin: 16px 0;
-    border-color: #A8A8A8; 
-  }
-
+.data-grid-container {
+  flex: 1;
 }
