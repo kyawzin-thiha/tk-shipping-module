@@ -123,6 +123,9 @@ body {
   background-color: #F6F6F6;
   border-radius: 10px;
   padding: 20px;
+  position: fixed;
+  top: 0; 
+  left: 0; 
 }
 
 .leftsidebar .menu-button {
@@ -148,11 +151,12 @@ body {
 
 /* TABLE STYLING */
 .container {
-  height: 500px;
-  width: 100%;
+  width: 90%;
+  max-width: calc(100vw - 280px);
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 240px;
+  margin-bottom: 80px;
 }
 
 .header-container {
@@ -185,4 +189,5 @@ body {
 
 .data-grid-container {
   flex: 1;
+  width: 100%;
 }

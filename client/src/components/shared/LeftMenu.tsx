@@ -1,3 +1,7 @@
+const getRandomColor = () => {
+  const colors = ['#6A91ED', '#DA667B', '#C4E0F9', '#FFC133'];
+  return colors[Math.floor(Math.random() * colors.length)];
+};
 
 const LeftMenu = () => {
   return (
@@ -12,19 +16,14 @@ const LeftMenu = () => {
                 />
             </div>
             <div className="flex gap-3 items-center">
-                <img 
-                    src ={"/assets/images/profile-placeholder.svg"}
-                    alt="profile"
-                    className="h-10 w-10 rounded-full"
-                />
-                <div className="flex flex-col">
-                    <p className="body-medium">
-                        Snoopy Brown
-                    </p>
-                    <p className="small-regular text-gray-500">
-                        @snoopdog
-                    </p>
-                </div>
+              <div
+                className="h-10 w-10 rounded-full"
+                style={{ backgroundColor: getRandomColor() }}
+              ></div>
+              <div className="flex flex-col">
+                <p className="body-medium">Snoopy Brown</p>
+                <p className="small-regular text-gray-500">@snoopdog</p>
+              </div>
             </div>
             <div className="flex flex-col gap-2">
                 <button className="menu-button">

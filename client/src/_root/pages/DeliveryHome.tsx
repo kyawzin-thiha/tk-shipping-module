@@ -1,16 +1,16 @@
 import LeftMenu from '@/components/shared/LeftMenu'
-import BoxesTable from '@/components/shared/BoxesTable'
+import DeliveryTable from '@/components/shared/DeliveryTable'
 
 
-const BoxesHome = () => {
+const DeliveryHome = () => {
   return (
     <div className="flex">
       <LeftMenu />
       <div>
-        <BoxesTable />
+        <DeliveryTable />
       </div>
     </div>
   )
 }
 
-export default BoxesHome
+export default DeliveryHome
