@@ -7,7 +7,7 @@ const columns: GridColDef[] = [
   { field: 'customer', headerName: 'Customer', width: 220 },
   { field: 'contents', headerName: 'Contents', width: 400 },
   { field: 'txn_number', headerName: 'SO#', width: 110 },
-  { field: 'tracking', headerName: 'Tracking #', width: 180 },
+  { field: 'tracking', headerName: 'Tracking #', width: 120 },
   { field: 'shippedDate', headerName: 'Shipped Date', width: 120 }
 ];
 

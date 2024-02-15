@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { Input } from "@/components/ui/input"
-
 import {
     Command,
     CommandEmpty,
@@ -38,14 +36,9 @@ const customers = [
 const SearchHistoryForm = () => {
     
     const [startDate, setStartDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
 
     const handleStartDateSelect = (date: Date) => {
         setStartDate(date);
-    };
-
-    const handleEndDateSelect = (date: Date) => {
-        setEndDate(date);
     };
 
     const [open, setOpen] = useState(false)
@@ -54,9 +47,9 @@ const SearchHistoryForm = () => {
     return (
         <div className="container">
             <div className="header-form-container">
-                <h2 className="h2-semibold">Search History</h2>
+                <h2 className="h2-semibold">Generate Shipping Report</h2>
                 <p className="text-gray-500 mt-2">
-                    Enter the fields you want to search for. Not all fields need to be filled in to search.
+                    Please select the customer and date you wish to generate a shipping report for.
                 </p>
             </div>
             <div className="form-container">
@@ -114,7 +107,7 @@ const SearchHistoryForm = () => {
                                
                 <div className="flex-container">
                     <div className="form-input">
-                        <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Shipped from date</label>
+                        <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Shipped Date</label>
                         <Popover>
                             <PopoverTrigger asChild>
                                 <Button
@@ -125,7 +118,7 @@ const SearchHistoryForm = () => {
                                     )}
                                 >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {startDate ? format(startDate, "PPP") : <span>Pick a start date</span>}
+                                    {startDate ? format(startDate, "PPP") : <span>Pick a date</span>}
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0 cal-style">
@@ -138,42 +131,12 @@ const SearchHistoryForm = () => {
                             </PopoverContent>
                         </Popover>
                     </div>
-                    <span className="separator">-</span>
-                    <div className="form-input">
-                        <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Shipped to date</label>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-[280px] justify-start text-left font-normal button-style-cal",
-                                        !endDate && "text-muted-foreground"
-                                    )}
-                                >
-                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {endDate ? format(endDate, "PPP") : <span>Pick an end date</span>}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 cal-style">
-                                <Calendar
-                                    mode="single"
-                                    selected={endDate}
-                                    onSelect={handleEndDateSelect}
-                                    initialFocus
-                                />
-                            </PopoverContent>
-                        </Popover>
-                    </div>
+                    
                 </div>
                 </div>
-                <div className="form-input-row">
-                    <div className="form-input, input-style mr-10">
-                            <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1 mt-5">Key Word Search</label>
-                            <Input className="text-gray-500" type="text" placeholder="Search by item name, SO#, Tracking #..." />
-                        </div>
-                    </div>
-                <div className="form-input-row centered">
-                    <Button className="search-button">Search</Button>
+                
+                <div className="form-input-row centered mt-10">
+                    <Button className="search-button">Print Report</Button>
                 </div>
             </div>
         </div>
