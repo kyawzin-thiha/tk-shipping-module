@@ -22,8 +22,8 @@ import {
     CommandInput,
     CommandItem,
   } from "@/components/ui/command"
-
-
+  import { Checkbox } from "@/components/ui/checkbox"
+  
   const shipmethod = [
     {
       value: "courier",
@@ -66,7 +66,18 @@ function CreateItem({ onClose }) {
           <DialogDescription className="custom-dialog-description">
             Enter item details. Click save when you're done.
           </DialogDescription>
+          <br/>
+          <div className="flex items-center space-x-2">
+            <Checkbox id="addressbook" />
+            <label
+              htmlFor="terms"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Address Book
+            </label>
+          </div>
         </DialogHeader>
+        
         <br/>
         {/* Your dialog content goes here */}
         <div className="grid grid-cols-2 gap-4">
