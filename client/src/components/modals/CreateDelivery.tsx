@@ -87,7 +87,7 @@ function CreateItem({ onClose }) {
         </div>
         
         <DialogFooter className="custom-dialog-footer">
-          <Button onClick={handleClose} className="custom-create-button">Create Delivery</Button>
+          <Button onClick={handleClose} className="custom-create-button">Save Delivery</Button>
         </DialogFooter>
 
     </DialogContent>

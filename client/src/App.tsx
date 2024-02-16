@@ -5,24 +5,26 @@ import DeliveryHome from './_root/pages/DeliveryHome';
 import SearchHistory from './_root/pages/SearchHistory';
 import ShippingReport from './_root/pages/ShippingReport';
 import BoxDetails from './_root/pages/BoxDetails';
+import DeliveryDetails from './_root/pages/DeliveryDetails';
+
 
 function App() {
   return (
     <Router>
-        <div className="content">
-          <Routes>
-            <Route path="/items" element={<ItemsHome />} />
-            <Route path="/boxes" element={<BoxesHome />} />
-            <Route path="/delivery" element={<DeliveryHome />} />
-            <Route path="/search-history" element={<SearchHistory />} />
-            <Route path="/shipping-report" element={<ShippingReport />} />
+      <div className="content">
+        <Routes>
+          <Route path="/items" element={<ItemsHome />} />
+          <Route path="/boxes" element={<BoxesHome />} />
+          <Route path="/delivery" element={<DeliveryHome />} />
+          <Route path="/search-history" element={<SearchHistory />} />
+          <Route path="/shipping-report" element={<ShippingReport />} />
 
-            <Route path="/box-details" element={<BoxDetails />} />
-          </Routes>
-        </div>
+          <Route path="/box-details" element={<BoxDetails />} />
+          <Route path="/delivery-details" element={<DeliveryDetails />} />
+        </Routes>
+      </div>
       
     </Router>
-
   );
 }
 

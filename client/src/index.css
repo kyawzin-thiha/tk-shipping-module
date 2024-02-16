@@ -248,6 +248,19 @@ body {
   background-color: #000000 !important;
 }
 
+.inverse-button {
+  padding: 10px 20px;
+  background-color: white;
+  color: #0f172a;
+  border: 1px, rgb(153, 153, 153);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inverse-button:hover {
+  background-color: rgb(224, 224, 224) !important;
+}
+
 
 /* Form input styling */
 .input-style {
@@ -298,9 +311,25 @@ body {
   text-overflow: ellipsis;
 }
 
+.small-button-style:hover,
 .button-style:hover {
   background-color: #ffffff !important;
 }
+
+.small-button-style {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  color: #333;
+  cursor: pointer;
+  max-width: 180px;
+  min-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 
 .command-item-style:hover {
   background-color: #f3f3f3;
@@ -543,6 +572,18 @@ body {
   background-color: #858585 !important;
 }
 
+.purple-button {
+  padding: 10px 20px;
+  background-color: #A472E3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.purple-button:hover {
+  background-color: #9362cf !important;
+}
 
 .li-blue-button {
   padding: 10px 20px;
@@ -581,4 +622,65 @@ body {
 
 .warning-button:hover {
   background-color: #dc2d2d17 !important;
+}
+
+.danger-button {
+  padding: 10px 20px;
+  background-color: #dc2d2d17;
+  color:#DC2D2D;
+  border: 1px solid #DC2D2D;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.danger-button:hover {
+  background-color: rgba(194, 37, 37, 0.164) !important;
+}
+
+.complete-button {
+  padding: 10px 20px;
+  background-color: #2eb93517;
+  color:#1B9A35;
+  border: 1px solid #1B9A35;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.complete-button:hover {
+  background-color: #2eb9352d !important;
+}
+
+.information-label {
+  display: block;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  color: #4B5563; /* text-gray-700 */
+  margin-bottom: 0.25rem; /* 4px */
+}
+
+.information-value {
+  display: block;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 400;
+  color: #6B7280; /* text-gray-500 */
+  margin-bottom: 0.25rem; /* 4px */
+}
+
+/* Alert Dialog */
+.custom-alert-dialog {
+  background-color: #ffffff;
+  border-radius: 0.875rem !important;
+  padding: 30px;
+}
+
+.toaster-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  padding: 16px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

@@ -23,7 +23,7 @@ const method = [
     { value: "callforpickup", label: "Call For Pickup" },
 ];
 
-const BoxFormInside = () => {
+const DeliveryFormInside = () => {
     const [openAddress, setOpenAddress] = useState(false);
     const [valueAddress, setValueAddress] = useState("");
 
@@ -31,18 +31,17 @@ const BoxFormInside = () => {
     const [valueMethod, setValueMethod] = useState("");
 
     // Sample data for information labels
-    const packageType = "Box";
+    const shipDate = "2024-02-10";
     const shipBy = "2024-02-09";
     const trackingNumber = "12345-67890";
-    const customer = "TK House Account";
 
     return (
         <div className="container" style={{ marginBottom: 40 }}>
             <div className="form-container">
                 <div className="form-input-row">
                     <div className="form-input" >
-                        <label htmlFor="item-name" className="information-label">Package Type:</label>
-                        <div className="information-value">{packageType}</div>
+                        <label htmlFor="item-name" className="information-label">Shipped Date:</label>
+                        <div className="information-value">{shipDate}</div>
                     </div>
                     <div className="form-input">
                         <label htmlFor="item-name" className="information-label">Tracking #:</label>
@@ -140,4 +139,4 @@ const BoxFormInside = () => {
         </div>
     );
 };
-export default BoxFormInside
+export default DeliveryFormInside

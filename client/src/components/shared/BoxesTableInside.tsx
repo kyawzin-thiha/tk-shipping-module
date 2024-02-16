@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import CreateItem from "../modals/CreateItem";
+import CreateBox from "../modals/CreateBox";
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Item', width: 350 },
@@ -53,15 +52,15 @@ export default function BoxesTableInside() {
   );
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginBottom: 50 }}>
       
-      <div className="search-container">
+      <div className="search-container" style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button className="plus-button" onClick={toggleDialog}>
-          <img src="/assets/icons/plus-minus-solid.svg" alt="add" className="button-icon" />
-          ITEM
+            <img src="/assets/icons/plus-minus-solid.svg" alt="add" className="button-icon" />
+            ITEM
         </Button>
-        {isDialogOpen && <CreateItem onClose={toggleDialog} />}
-      </div>
+        {isDialogOpen && <CreateBox onClose={toggleDialog} />}
+    </div>
       <div className="data-grid-container">
         <DataGrid
           rows={filteredRows}
