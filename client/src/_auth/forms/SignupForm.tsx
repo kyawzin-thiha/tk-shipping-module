@@ -26,8 +26,8 @@ const SignupForm = () => {
       <div className="sm:w-420 flex-center flex-col">
         <img src="/assets/images/TKGraphics.png"/>
 
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
-        <p className="text-light-3 small-medium md:base-regular mt-2">Welcome, please enter your account details.</p>
+        <h2 className="h2-semibold">Create a new account</h2>
+        <p className="small-regular text-gray-500">Welcome, please enter your account details.</p>
 
         <form /*onSubmit={form.handleSubmit()}*/ className="flex flex-col gap-5 w-full mt-4"> 
           <FormField
@@ -35,9 +35,9 @@ const SignupForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="input-style" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -48,9 +48,9 @@ const SignupForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Username</label>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="input-style" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -61,9 +61,9 @@ const SignupForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
+                  <Input type="email" className="input-style" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -74,15 +74,15 @@ const SignupForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
                 <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+                  <Input type="password" className="input-style" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="shad-button_primary">
+          <Button type="submit" className="authentication-button">
             Sign up
           </Button>
 

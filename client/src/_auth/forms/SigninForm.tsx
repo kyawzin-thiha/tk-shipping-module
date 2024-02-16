@@ -23,8 +23,8 @@ const SigninForm = () => {
     <div className="sm:w-420 flex-center flex-col">
       <img src="/assets/images/TKGraphics.png"/>
 
-      <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Log in to your account</h2>
-      <p className="text-light-3 small-medium md:base-regular mt-2">Welcome back! Please enter your login details.</p>
+      <h2 className="h2-semibold">Log in to your account</h2>
+      <p className="small-regular text-gray-500">Welcome back! Please enter your login details.</p>
 
       <form /*onSubmit={form.handleSubmit()}*/ className="flex flex-col gap-5 w-full mt-4"> 
         <FormField
@@ -32,9 +32,9 @@ const SigninForm = () => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Username</label>
               <FormControl>
-                <Input type="text" className="shad-input" {...field} />
+                <Input type="text" className="input-style" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -45,15 +45,15 @@ const SigninForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
               <FormControl>
-                <Input type="password" className="shad-input" {...field} />
+                <Input type="password" className="input-style" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="shad-button_primary">
+        <Button type="submit" className="authentication-button">
           Sign in
         </Button>
 

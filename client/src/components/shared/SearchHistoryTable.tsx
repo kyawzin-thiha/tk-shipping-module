@@ -63,7 +63,12 @@ export default function DataTable() {
           columns={columns}
           autoHeight
           disableRowSelectionOnClick
-          //rowsPerPageOptions={[10, 20, 30]}
+          initialState={{
+            pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+            },
+            }}
+            pageSizeOptions={[10, 20, 50]}
         />
       </div>
     </div>
