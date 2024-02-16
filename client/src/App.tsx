@@ -6,6 +6,7 @@ import SearchHistory from './_root/pages/SearchHistory';
 import ShippingReport from './_root/pages/ShippingReport';
 import BoxDetails from './_root/pages/BoxDetails';
 import DeliveryDetails from './_root/pages/DeliveryDetails';
+import ItemDetails from './_root/pages/ItemDetails';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 
           <Route path="/box-details" element={<BoxDetails />} />
           <Route path="/delivery-details" element={<DeliveryDetails />} />
+          <Route path="/item-details" element={<ItemDetails />} />
         </Routes>
       </div>
       

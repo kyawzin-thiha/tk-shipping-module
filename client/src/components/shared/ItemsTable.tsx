@@ -13,6 +13,7 @@ const columns: GridColDef[] = [
   { field: 'shipBy', headerName: 'Ship By', width: 120 }
 ];
 
+/* sample data */
 const rows = [
   { id: 'Sample item 1', txn_number: 1234, shipAddress: '198 North Sea Ave, Burnaby', qty: 35, shipBy: '2024-02-15' },
   { id: 'Sample item 2', txn_number: 2354, shipAddress: '2400 Boundary Road, Burnaby', qty: 42, shipBy: '2024-02-20' },
@@ -57,6 +58,7 @@ export default function DataTable() {
       <div className="header-container">
         <h2 className="h2-semibold">Items to Package</h2>
       </div>
+      
       <div className="search-container">
         <TextField
           label="Search"
