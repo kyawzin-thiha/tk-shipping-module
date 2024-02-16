@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CreateDelivery from "../modals/CreateDelivery";
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Delivery ID', width: 180 },
@@ -41,6 +42,7 @@ const rows = [
 
 export default function DataTable() {
   const [searchText, setSearchText] = useState('');
+  const [isDialogOpen, setDialogOpen] = useState(false);
 
   const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -51,6 +53,10 @@ export default function DataTable() {
       value?.toString().toLowerCase().includes(searchText.toLowerCase())
     )
   );
+
+  const toggleDialog = () => {
+    setDialogOpen(!isDialogOpen);
+  };
 
   return (
     <div className="container">
@@ -65,10 +71,11 @@ export default function DataTable() {
           onChange={handleSearchTextChange}
           className="search-field"
         />
-        <Button className="plus-button">
+        <Button className="plus-button" onClick={toggleDialog}>
           <img src="/assets/icons/plus-solid-white.svg" alt="add" className="plus-icon" />
           DELIVERY
         </Button>
+        {isDialogOpen && <CreateDelivery onClose={toggleDialog} />}
       </div>
       <div className="data-grid-container">
         <DataGrid
@@ -76,7 +83,12 @@ export default function DataTable() {
           columns={columns}
           autoHeight
           disableRowSelectionOnClick
-          //rowsPerPageOptions={[10, 20, 30]}
+          initialState={{
+            pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+            },
+            }}
+            pageSizeOptions={[10, 20, 50]}
         />
       </div>
     </div>

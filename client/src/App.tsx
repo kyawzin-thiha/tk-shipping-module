@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LeftMenu from './components/shared/LeftMenu';
 import ItemsHome from './_root/pages/ItemsHome';
 import BoxesHome from './_root/pages/BoxesHome';
 import DeliveryHome from './_root/pages/DeliveryHome';
@@ -9,8 +8,6 @@ import ShippingReport from './_root/pages/ShippingReport';
 function App() {
   return (
     <Router>
-      <div className="app">
-        <LeftMenu />
         <div className="content">
           <Routes>
             <Route path="/items" element={<ItemsHome />} />
@@ -20,7 +17,7 @@ function App() {
             <Route path="/shipping-report" element={<ShippingReport />} />
           </Routes>
         </div>
-      </div>
+      
     </Router>
   );
 }

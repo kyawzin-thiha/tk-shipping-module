@@ -167,7 +167,7 @@ const SearchHistoryForm = () => {
                 </div>
                 </div>
                 <div className="form-input-row">
-                    <div className="form-input, input-style mr-10">
+                        <div className="form-input, input-style mr-10">
                             <label htmlFor="item-name" className="block text-sm font-medium text-gray-700 mb-1 mt-5">Key Word Search</label>
                             <Input className="text-gray-500" type="text" placeholder="Search by item name, SO#, Tracking #..." />
                         </div>
