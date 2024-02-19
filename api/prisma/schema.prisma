@@ -19,3 +19,47 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+enum ProductStatus {
+  CREATED
+  PARTIAL_IN_BOX
+  ALL_IN_BOX
+}
+
+model Product {
+  id               String        @id @default(cuid()) @map("_id")
+  name             String
+  description      String
+  po               String
+  shopvox          String
+  salesOrder       String
+  qty              Int
+  shipBy           DateTime
+  status           ProductStatus @default(CREATED)
+  isManual         Boolean       @default(false)
+  billedToId       String?
+  billedTo         Customer?      @relation(name: "BilledToCustomer", fields: [billedToId], references: [id])
+  billedToAddress  String?
+  shippedToId      String?
+  shippedTo        Customer?      @relation(name: "ShippedToCustomer", fields: [shippedToId], references: [id])
+  shippedToAddress String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model Customer {
+  id               String    @id @default(cuid()) @map("_id")
+  shopvox          String
+  name             String
+  company          String
+  address1         String
+  address2         String
+  city             String
+  state            String
+  zip              String
+  country          String
+  billedToProduct  Product[] @relation(name: "BilledToCustomer")
+  shippedToProduct Product[] @relation(name: "ShippedToCustomer")
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}

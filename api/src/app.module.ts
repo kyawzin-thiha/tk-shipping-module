@@ -6,11 +6,12 @@ import {WebhookModule} from './routes/webhook/webhook.module';
 import {AuthModule} from './routes/auth/auth.module';
 import {APP_GUARD} from '@nestjs/core';
 import {AuthGuard} from './guards/auth.guatd';
+import { ProductModule } from './routes/product/product.module';
 
 @Module({
     imports: [ConfigModule.forRoot({
         isGlobal: true
-    }), HelperModule, DbModule, AuthModule, WebhookModule],
+    }), HelperModule, DbModule, AuthModule, WebhookModule, ProductModule],
     providers: [
         {
             provide: APP_GUARD,
