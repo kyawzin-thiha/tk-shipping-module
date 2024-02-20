@@ -55,9 +55,6 @@ export default function DataTable() {
 
   return (
     <div className="container">
-      <div className="header-container">
-        <h2 className="h2-semibold">Items to Package</h2>
-      </div>
       
       <div className="search-container">
         <TextField
