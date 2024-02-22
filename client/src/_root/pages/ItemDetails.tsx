@@ -71,13 +71,16 @@ import LeftMenu from "@/components/shared/LeftMenu";
         </div>
         <div className="input-style-modal">
           <Label htmlFor="billing-address">Billing Address</Label>
-          <Input id="billing-address" type="text"/>
+          <Input id="billing-address" type="text" placeholder="Enter address in format below"/>
         </div>
         <div className="input-style-modal">
           <Label htmlFor="shipping-address">Shipping Address</Label>
-          <Input id="shipping-address" type="text" placeholder=""/>
+          <Input id="shipping-address" type="text" placeholder="Enter address in format below"/>
         </div>
-        <div className="input-style-modal">
+        <div className="col-span-2 small-regular text-gray-500"> 
+          Unit-Street, City, Province, Postal Code, Country
+        </div>
+        <div className="input-style-modal mt-2">
           <Label htmlFor="shipping-method">Shipping Method</Label>
           <Popover open={open} onOpenChange={setOpen}>
                       <PopoverTrigger asChild>
