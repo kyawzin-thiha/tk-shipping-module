@@ -489,13 +489,34 @@ body {
   box-shadow: 0 0 0 2px rgba(184, 184, 184, 0.2) !important; 
 }
 
-.textarea-style {
-  margin-bottom: .875rem !important;
+.modal-scroll-container {
+  max-height: 65vh; 
+  overflow-y: auto;
+  padding-right: 25px;
 }
+
+/* Track */
+.modal-scroll-container::-webkit-scrollbar-track {
+  background: #ffffff !important; 
+  margin-left: 10px;
+}
+
+/* Handle */
+.modal-scroll-container::-webkit-scrollbar-thumb {
+  background: #888 !important; 
+  border-radius: 8px !important; 
+}
+
+/* Handle on hover */
+.modal-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555 !important; 
+}
+
 
 .textarea-style ::placeholder {
   font-size: .875rem !important; 
   color: #929292 !important; 
+  
 }
 
 .textarea-style {
@@ -506,6 +527,7 @@ body {
   color: #242424 !important; 
   transition: border-color 0.3s ease !important;
   background-color: white !important;
+  margin-bottom: .875rem !important;
 }
 
 .textarea-style:focus {

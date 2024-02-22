@@ -80,20 +80,24 @@ function CreateItem({ onClose }) {
         
         <br/>
         {/* Your dialog content goes here */}
+        <div className="modal-scroll-container">
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2 input-style-modal">
             <Label htmlFor="customer">Customer</Label>
             <Input id="customer" type="text" placeholder=""/>
           </div>
-          <div className="input-style-modal">
+          <div className="input-style-modal col-span-2">
             <Label htmlFor="billing-address">Billing Address</Label>
-            <Input id="billing-address" type="text"/>
+            <Input id="billing-address" type="text" placeholder="Enter in format below"/>
           </div>
-          <div className="input-style-modal">
+          <div className="input-style-modal col-span-2">
             <Label htmlFor="shipping-address">Shipping Address</Label>
-            <Input id="shipping-address" type="text" placeholder=""/>
+            <Input id="shipping-address" type="text" placeholder="Enter in format below"/>
           </div>
-          <div className="input-style-modal">
+          <div className="col-span-2 small-regular text-gray-500" style={{ marginTop: '-0.875rem' }}> 
+            Unit-Street, City, Province, Postal Code, Country
+          </div>
+          <div className="input-style-modal mt-2">
             <Label htmlFor="shipping-method">Shipping Method</Label>
             <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
@@ -179,6 +183,7 @@ function CreateItem({ onClose }) {
                             </PopoverContent>
                         </Popover>
           </div>
+        </div>
         </div>
         
         <DialogFooter className="custom-dialog-footer">

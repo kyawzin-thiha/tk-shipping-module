@@ -69,15 +69,15 @@ import LeftMenu from "@/components/shared/LeftMenu";
           <Label htmlFor="customer">Customer</Label>
           <Input id="customer" type="text" placeholder=""/>
         </div>
-        <div className="input-style-modal">
+        <div className="input-style-modal col-span-2">
           <Label htmlFor="billing-address">Billing Address</Label>
           <Input id="billing-address" type="text" placeholder="Enter address in format below"/>
         </div>
-        <div className="input-style-modal">
+        <div className="input-style-modal col-span-2">
           <Label htmlFor="shipping-address">Shipping Address</Label>
           <Input id="shipping-address" type="text" placeholder="Enter address in format below"/>
         </div>
-        <div className="col-span-2 small-regular text-gray-500"> 
+        <div className="col-span-2 small-regular text-gray-500" style={{ marginTop: '-0.9rem' }}> 
           Unit-Street, City, Province, Postal Code, Country
         </div>
         <div className="input-style-modal mt-2">
