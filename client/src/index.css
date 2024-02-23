@@ -607,6 +607,21 @@ body {
   background-color: #9362cf !important;
 }
 
+.blue-button-custom {
+  padding: 10px 20px !important;
+  background-color: #ffffff00 !important;
+  color: rgb(34,91,198) !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+}
+
+.blue-button-custom:hover {
+  background-color: rgba(175, 190, 248, 0.219,198) !important;
+  color: rgb(34,91,198) !important;
+
+}
+
 .li-blue-button {
   padding: 10px 20px;
   background-color: #7EC3D2;
