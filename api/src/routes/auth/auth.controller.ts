@@ -23,6 +23,7 @@ export class AuthController {
 	async login(@Body() data: { identifier: string, password: string }, @Response({ passthrough: true }) res: any) {
 		const token = await this.auth.login(data.identifier, data.password);
 
+		console.log(this.configService.get('NODE_ENV'), this.configService.get('COOKIE_DOMAIN'));
 		res.cookie('token', token, {
 			httpOnly: this.configService.get('NODE_ENV') === 'production',
 			sameSite: 'none',
@@ -44,6 +45,7 @@ export class AuthController {
 	}, @Response({ passthrough: true }) res: any) {
 		const token = await this.auth.register(data.name, data.username, data.email, data.password);
 
+		console.log(this.configService.get('NODE_ENV'), this.configService.get('COOKIE_DOMAIN'));
 		res.cookie('token', token, {
 			httpOnly: this.configService.get('NODE_ENV') === 'production',
 			sameSite: 'none',
