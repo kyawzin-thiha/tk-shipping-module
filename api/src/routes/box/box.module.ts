@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { BoxController } from './box.controller';
+import { BoxService } from './box.service';
 import { HelperModule } from '../../helper/helper.module';
 import { DbModule } from '../../db/db.module';
 
 @Module({
 	imports: [HelperModule, DbModule],
-	controllers: [AuthController],
-	providers: [AuthService],
+	controllers: [BoxController],
+	providers: [BoxService],
 })
-export class AuthModule {}
+export class BoxModule {}

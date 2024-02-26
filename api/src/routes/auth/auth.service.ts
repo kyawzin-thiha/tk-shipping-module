@@ -1,72 +1,72 @@
-import {HttpException, Injectable} from '@nestjs/common';
-import {UserRepository} from '../../db/user.repository';
-import {BcryptService} from '../../helper/bcrypt.service';
-import {JwtTokenService} from '../../helper/jwt.service';
+import { HttpException, Injectable } from '@nestjs/common';
+import { UserRepository } from '../../db/user.repository';
+import { BcryptService } from '../../helper/bcrypt.service';
+import { JwtTokenService } from '../../helper/jwt.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly user: UserRepository, private readonly bcrypt: BcryptService, private readonly jwt: JwtTokenService) {}
+	constructor(private readonly user: UserRepository, private readonly bcrypt: BcryptService, private readonly jwt: JwtTokenService) {}
 
-    private generateToken(payload: any) {
-        const [token, error] = this.jwt.sign(payload);
+	async login(identifier: string, password: string) {
+		const [user, dbError] = await this.user.find(identifier);
+		if (dbError) {
+			throw new HttpException(dbError.message, dbError.status);
+		}
+		const match = await this.bcrypt.compareValue(password, user.password);
 
-        if (error) {
-            throw new HttpException(error.message, error.status);
-        }
+		if (!match) {
+			throw new HttpException('Invalid Password', 401);
+		}
 
-        return token;
-    }
+		const payload = {
+			id: user.id,
+			email: user.email,
+			name: user.name,
+		};
 
-    async login(identifier: string, password: string) {
-        const [user, dbError] = await this.user.find(identifier);
-        if (dbError) {
-            throw new HttpException(dbError.message, dbError.status);
-        }
-        const match = await this.bcrypt.compareValue(password, user.password);
+		return this.generateToken(payload);
+	}
 
-        if (!match) {
-            throw new HttpException('Invalid Password', 401);
-        }
+	async register(name: string, usernaem: string, email: string, password: string) {
+		password = this.bcrypt.hashValue(password);
 
-        const payload = {
-            id: user.id,
-            email: user.email,
-            name: user.name
-        };
+		const [user, dbError] = await this.user.create(name, usernaem, email, password);
 
-        return this.generateToken(payload);
-    }
+		if (dbError) {
+			throw new HttpException(dbError.message, dbError.status);
+		}
 
-    async register(name: string, usernaem: string, email: string, password: string) {
-        password = this.bcrypt.hashValue(password);
+		const payload = {
+			id: user.id,
+			email: user.email,
+			name: user.name,
+		};
 
-        const [user, dbError] = await this.user.create(name, usernaem, email, password);
+		return this.generateToken(payload);
+	}
 
-        if (dbError) {
-            throw new HttpException(dbError.message, dbError.status);
-        }
+	async getAllEmailsAndUsernames() {
+		const [users, dbError] = await this.user.getAll();
 
-        const payload = {
-            id: user.id,
-            email: user.email,
-            name: user.name
-        };
+		if (dbError) {
+			throw new HttpException(dbError.message, dbError.status);
+		}
 
-        return this.generateToken(payload);
-    }
+		return users.map(user => {
+			return {
+				email: user.email,
+				username: user.username,
+			};
+		});
+	}
 
-    async getAllEmailsAndUsernames() {
-        const [users, dbError] = await this.user.getAll();
+	private generateToken(payload: any) {
+		const [token, error] = this.jwt.sign(payload);
 
-        if (dbError) {
-            throw new HttpException(dbError.message, dbError.status);
-        }
+		if (error) {
+			throw new HttpException(error.message, error.status);
+		}
 
-        return users.map(user => {
-            return {
-                email: user.email,
-                username: user.username
-            };
-        });
-    }
+		return token;
+	}
 }

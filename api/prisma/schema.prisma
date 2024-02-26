@@ -1,8 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -10,56 +8,83 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PStatus {
+  CREATED
+  PARTIAL_IN_BOX
+  ALL_IN_BOX
+  SHIPPED
+}
+
+enum BStatus {
+  CREATED
+  SHIPPED
+}
+
 model User {
   id        String   @id @default(cuid()) @map("_id")
-  name      String
-  username  String   @unique
   email     String   @unique
+  username  String   @unique
+  name      String
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-enum ProductStatus {
-  CREATED
-  PARTIAL_IN_BOX
-  ALL_IN_BOX
-}
-
 model Product {
-  id               String        @id @default(cuid()) @map("_id")
-  name             String
-  description      String
-  po               String
-  shopvox          String
-  salesOrder       String
-  qty              Int
-  shipBy           DateTime
-  status           ProductStatus @default(CREATED)
-  isManual         Boolean       @default(false)
-  billedToId       String?
-  billedTo         Customer?      @relation(name: "BilledToCustomer", fields: [billedToId], references: [id])
-  billedToAddress  String?
-  shippedToId      String?
-  shippedTo        Customer?      @relation(name: "ShippedToCustomer", fields: [shippedToId], references: [id])
-  shippedToAddress String?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
+  id                String       @id @default(cuid()) @map("_id")
+  name              String
+  description       String
+  po                String?      @default("")
+  shopvox           String?      @default("")
+  salesOrder        String?      @default("")
+  qty               Int
+  shipBy            DateTime
+  shippingMethod    String?      @default("courier")
+  status            PStatus      @default(CREATED)
+  customFields      String?      @default("")
+  isManual          Boolean      @default(false)
+  billingAddress    String
+  shippingAddress   String
+  billingContactId  String?
+  billingContact    Customer?    @relation(name: "billing-contact", fields: [billingContactId], references: [id])
+  shippingContactId String?
+  shippingContact   Customer?    @relation(name: "shipping-contact", fields: [shippingContactId], references: [id])
+  boxes             BoxContent[]
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
 }
 
 model Customer {
-  id               String    @id @default(cuid()) @map("_id")
-  shopvox          String
-  name             String
-  company          String
-  address1         String
-  address2         String
-  city             String
-  state            String
-  zip              String
-  country          String
-  billedToProduct  Product[] @relation(name: "BilledToCustomer")
-  shippedToProduct Product[] @relation(name: "ShippedToCustomer")
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id        String    @id @default(cuid()) @map("_id")
+  name      String
+  company   String
+  street    String
+  city      String
+  state     String
+  zip       String
+  country   String
+  billedTo  Product[] @relation(name: "billing-contact")
+  shippedTo Product[] @relation(name: "shipping-contact")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Box {
+  id        String       @id @default(cuid()) @map("_id")
+  name      String?      @default("")
+  status    BStatus      @default(CREATED)
+  contents  BoxContent[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model BoxContent {
+  id        String   @id @default(cuid()) @map("_id")
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  qty       Int
+  boxId     String
+  box       Box      @relation(fields: [boxId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
