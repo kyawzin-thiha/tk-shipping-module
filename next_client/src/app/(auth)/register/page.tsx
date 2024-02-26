@@ -18,6 +18,7 @@ const register = async (data: { name: string, username: string, email: string, p
 		body: JSON.stringify(data),
 		mode: 'cors',
 		credentials: 'include',
+		cache: 'no-cache',
 	});
 
 	return response.ok;

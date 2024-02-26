@@ -18,6 +18,7 @@ const login = async (data: { identifier: string, password: string }) => {
 		body: JSON.stringify(data),
 		mode: 'cors',
 		credentials: 'include',
+		cache: 'no-cache',
 	});
 
 	return response.ok;
