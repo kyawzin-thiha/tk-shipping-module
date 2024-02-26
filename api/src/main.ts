@@ -14,6 +14,7 @@ async function bootstrap() {
 		origin: configService.get('CLIENT_URL') || 'http://localhost:3000',
 		credentials: true,
 	});
+	console.log(configService.get('CLIENT_URL'), configService.get('COOKIE_SECRET'));
 	app.use(helmet());
 	app.use(cookieParser(configService.get('COOKIE_SECRET')));
 	app.use(compression());
