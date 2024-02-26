@@ -26,7 +26,7 @@ export class AuthController {
 		console.log(this.configService.get('NODE_ENV'), this.configService.get('COOKIE_DOMAIN'));
 		res.cookie('token', token, {
 			sameSite: 'none',
-			domain: 'https://tk-shipping-module.vercel.app',
+			domain: undefined,
 			maxAge: 1000 * 60 * 60 * 24,
 		});
 
