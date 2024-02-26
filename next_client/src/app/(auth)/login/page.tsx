@@ -38,7 +38,7 @@ export default function Page() {
 		});
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		const response = await login(data);
 		if (response) {
@@ -51,7 +51,7 @@ export default function Page() {
 			<div className={styles['title']}>
 				Login
 			</div>
-			<form className={styles['form-container']} onSubmit={handleSubmit}>
+			<div className={styles['form-container']}>
 				<div className={styles['input']}>
 					<TextField label="Username" variant="outlined" fullWidth required name={'identifier'} onChange={handleData} />
 				</div>
@@ -59,7 +59,7 @@ export default function Page() {
 					<TextField label="Password" variant="outlined" fullWidth required name={'password'} onChange={handleData} />
 				</div>
 				<div className={styles['button']}>
-					<Button variant="contained" type={'submit'} fullWidth>Login</Button>
+					<Button variant="contained" onClick={handleSubmit} fullWidth>Login</Button>
 				</div>
 				<hr className={styles['divider']} />
 				<div className={styles['button']}>
@@ -70,7 +70,7 @@ export default function Page() {
 										disableElevation>Register</Button>
 					</Link>
 				</div>
-			</form>
+			</div>
 		</>
 	);
 }

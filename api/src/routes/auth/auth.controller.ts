@@ -26,6 +26,7 @@ export class AuthController {
 		console.log(this.configService.get('NODE_ENV'), this.configService.get('COOKIE_DOMAIN'));
 		res.cookie('token', token, {
 			httpOnly: this.configService.get('NODE_ENV') === 'production',
+			secure: this.configService.get('NODE_ENV') === 'production',
 			sameSite: 'None',
 			domain: this.configService.get('NODE_ENV') === 'production' ? this.configService.get('COOKIE_DOMAIN') : undefined,
 			maxAge: 1000 * 60 * 60 * 24,
@@ -47,6 +48,7 @@ export class AuthController {
 		console.log(this.configService.get('NODE_ENV'), this.configService.get('COOKIE_DOMAIN'));
 		res.cookie('token', token, {
 			httpOnly: this.configService.get('NODE_ENV') === 'production',
+			secure: this.configService.get('NODE_ENV') === 'production',
 			sameSite: 'None',
 			domain: this.configService.get('NODE_ENV') === 'production' ? this.configService.get('COOKIE_DOMAIN') : undefined,
 			maxAge: 1000 * 60 * 60 * 24,
