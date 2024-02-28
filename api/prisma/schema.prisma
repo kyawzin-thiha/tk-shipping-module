@@ -70,12 +70,14 @@ model Customer {
 }
 
 model Box {
-  id        String       @id @default(cuid()) @map("_id")
-  name      String?      @default("")
-  status    BStatus      @default(CREATED)
-  contents  BoxContent[]
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  id         String       @id @default(cuid()) @map("_id")
+  name       String?      @default("")
+  status     BStatus      @default(CREATED)
+  contents   BoxContent[]
+  deliveryId String?
+  delivery   Delivery?    @relation(fields: [deliveryId], references: [id])
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
 
 model BoxContent {
@@ -85,6 +87,15 @@ model BoxContent {
   qty       Int
   boxId     String
   box       Box      @relation(fields: [boxId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Delivery {
+  id        String   @id @default(cuid()) @map("_id")
+  shipTo    String
+  billTo    String
+  boxes     Box[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

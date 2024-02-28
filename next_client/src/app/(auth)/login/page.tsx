@@ -42,7 +42,7 @@ export default function Page() {
 		e.preventDefault();
 		const response = await login(data);
 		if (response) {
-			//router.replace('/');
+			router.replace('/');
 		}
 	};
 

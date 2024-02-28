@@ -32,25 +32,85 @@ const getBoxes = async () => {
 	}
 };
 
-const createRawItem = async (data: any) => {
-	console.log(data);
-	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/create-raw`, {
-		method: 'POST',
+const getProducts = async () => {
+	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/get-all`, {
+		method: 'GET',
 		mode: 'cors',
 		credentials: 'include',
 		cache: 'no-cache',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(data),
 	});
 
-	return response.ok;
+	if (response.ok) {
+		return await response.json();
+	}
+	else {
+		return [];
+	}
 };
+
 export default function Home() {
+
+	const BoxColumns: GridColDef[] = [
+		{ field: 'name', headerName: 'Name', width: 200 },
+		{
+			field: 'contents',
+			headerName: 'Contents',
+			width: 400,
+			renderCell: (params) => (
+				<div style={{ whiteSpace: 'pre-line' }}>{params.value}</div>
+			),
+		},
+		{ field: 'shipMethod', headerName: 'Ship Method', width: 200 },
+		{ field: 'shipAddress', headerName: 'Ship Address', width: 300 },
+		{ field: 'shipBy', headerName: 'Ship By', width: 200, type: 'date' },
+	];
+
+	const PackageColumns: GridColDef[] = [
+		{ field: 'description', headerName: 'Description', width: 400 },
+		{ field: 'salesOrder', headerName: 'SO#', width: 150 },
+		{ field: 'qty', headerName: 'Qty', type: 'number', width: 120 },
+		{
+			field: 'shippingAddress',
+			headerName: 'Ship Address',
+			width: 300,
+			valueGetter: (params) =>
+				params.row.isManual ? params.row.shippingAddress.split(',').slice(1).join(',').trim() :
+					`${params.row.shippingContact?.street}, ${params.row.shippingContact?.city}, ${params.row.shippingContact?.state}, ${params.row.shippingContact?.country}`,
+		},
+		{
+			field: "_qty",
+			headerName: "Qty",
+			width: 150,
+			renderCell: (params) => {
+				return (
+					<div>
+						<TextField id="outlined-basic" variant="outlined" fullWidth size={"small"} name={"qty"} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+							const inputQty = isNaN(parseInt(e.target.value)) ? 1 : parseInt(e.target.value);
+							console.log("enter")
+							if(inputQty > params.row.remainingQty) {
+								console.log("enter if")
+								e.target.value = params.row.remainingQty;
+							}
+							if(!e.target.value || parseInt(e.target.value) <= 0) {
+								e.target.value = "";
+								handleRemoveProduct(params.row);
+								return;
+							}
+							handleSelectProduct(params.row, e.target.value);
+						}} />
+					</div>
+				)
+			}
+		}
+	];
 
 	const [rawBoxes, setRawBoxes] = useState([]);
 	const [filteredBoxes, setFilteredBoxes] = useState([]);
+
+	const [rawProducts, setRawProducts] = useState([]);
+	const [filteredProducts, setFilteredProducts] = useState([]);
+	const [selectedProducts, setSelectedProducts] = useState([]);
+
 	const [refreshCount, setRefreshCount] = useState(0);
 
 	const [searchText, setSearchText] = useState('');
@@ -79,11 +139,46 @@ export default function Home() {
 
 	const handleSubmit = async () => {};
 
+
+	const handleSelectProduct = (data: any, inputQty: string) => {
+		const qty = isNaN(parseInt(inputQty)) ? 1 : parseInt(inputQty);
+		console.log(qty)
+		console.log(data);
+		// @ts-ignore
+		setSelectedProducts((prev: any[]) => ([...prev,  data]));
+		const filtered = rawProducts.filter((row : any) => {
+			return matchStrings(row.shippingAddress, data.shippingAddress) && matchStrings(row.billingAddress, data.billingAddress);
+		});
+		console.log(rawProducts)
+		console.log(filtered);
+		setFilteredProducts(filtered);
+	}
+
+	const handleRemoveProduct = (data: any) => {
+		console.log(data.id);
+		// @ts-ignore
+		const filtered = selectedProducts.filter((row) => row.id !== data.id);
+		console.log(filtered);
+		setSelectedProducts(() => filtered);
+		console.log(selectedProducts);
+		if(filtered.length === 0) {
+			setFilteredProducts(rawProducts);
+		}
+	}
+
+	const matchStrings = (a: string, b: string) => {
+		return a.toLowerCase().replace(/ /g,'') === b.toLowerCase().replace(/ /g,'');
+	}
+
 	useEffect(() => {
 		const fetchData = async () => {
-			const products = await getBoxes();
-			setRawBoxes(products);
-			setFilteredBoxes(products);
+			const boxes = await getBoxes();
+			const products = await getProducts();
+
+			setRawBoxes(boxes);
+			setFilteredBoxes(boxes);
+			setRawProducts(products);
+			setFilteredProducts(products);
 		};
 
 		fetchData();
@@ -124,18 +219,18 @@ export default function Home() {
 										handleSubmit={handleSubmit}>
 					<div className={styles['dialog-content']}>
 						<div className={styles['subtitle']}>
-							Only items with the same Ship Method and Ship Address can be added to the same box.
+							Only items with same shipping and billing address can be added to the same box.
 						</div>
 						<hr className={styles['divider']} />
 						<div className={styles['line']}>
 							<div className={styles['item']}>
 								<label htmlFor={'boxType'} className={styles['label']}>Package Type</label>
 								<Select
-									labelId="boxType"
 									id="boxType"
 									size={'small'}
 									name={'boxType'}
 									sx={{ marginTop: '5px', width: '300px' }}
+									defaultValue={'Box'}
 								>
 									<MenuItem value={'Box'}>Box</MenuItem>
 									<MenuItem value={'Roll'}>Roll</MenuItem>
@@ -147,7 +242,7 @@ export default function Home() {
 						<div className={styles['line']}>
 							<div className={styles['item']}>
 								<DataGrid
-									rows={filteredBoxes}
+									rows={filteredProducts}
 									columns={PackageColumns}
 									autoHeight
 									disableRowSelectionOnClick
@@ -167,43 +262,6 @@ export default function Home() {
 		</PageWrapper>
 	);
 }
-
-const BoxColumns: GridColDef[] = [
-	{ field: 'name', headerName: 'Name', width: 200 },
-	{
-		field: 'contents',
-		headerName: 'Contents',
-		width: 400,
-		renderCell: (params) => (
-			<div style={{ whiteSpace: 'pre-line' }}>{params.value}</div>
-		),
-	},
-	{ field: 'shipMethod', headerName: 'Ship Method', width: 200 },
-	{ field: 'shipAddress', headerName: 'Ship Address', width: 300 },
-	{ field: 'shipBy', headerName: 'Ship By', width: 200, type: 'date' },
-];
-
-const PackageColumns: GridColDef[] = [
-	{ field: 'id', headerName: 'ID', width: 0, hideable: true },
-	{ field: 'description', headerName: 'Description', width: 400 },
-	{ field: 'salesOrder', headerName: 'SO#', width: 150 },
-	{ field: 'qty', headerName: 'Qty', type: 'number', width: 120 },
-	{
-		field: 'shippingAddress',
-		headerName: 'Ship Address',
-		width: 300,
-		valueGetter: (params) =>
-			params.row.isManual ? params.row.shippingAddress.split(',').slice(1).join(',').trim() :
-				`${params.row.shippingContact?.street}, ${params.row.shippingContact?.city}, ${params.row.shippingContact?.state}, ${params.row.shippingContact?.country}`,
-	},
-	{
-		field: 'shipBy',
-		headerName: 'Ship By',
-		width: 150,
-		type: 'string',
-		valueGetter: ({ value }) => value && new Date(value),
-	},
-];
 
 function preprocessBoxesData(boxes: Box[]) {
 	return boxes.map((box) => {
