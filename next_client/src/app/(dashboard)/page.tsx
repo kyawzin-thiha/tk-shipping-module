@@ -455,7 +455,7 @@ export default function Home() {
 											 onChange={handleData} />
 							</div>
 							<div className={styles['item']}>
-								<label htmlFor={'qty'} className={styles['label']}>Ship By</label>
+								<label htmlFor={'qty'} className={styles['label']}>Ship Date</label>
 								<LocalizationProvider dateAdapter={AdapterDayjs}>
 									<DatePicker
 										sx={{ marginTop: '5px' }} name={'shipBy'} value={shipBy}

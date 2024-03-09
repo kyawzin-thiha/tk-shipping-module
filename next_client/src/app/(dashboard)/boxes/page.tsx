@@ -86,9 +86,7 @@ export default function Home() {
 					<div>
 						<TextField id="outlined-basic" variant="outlined" fullWidth size={"small"} name={"qty"} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							const inputQty = isNaN(parseInt(e.target.value)) ? 1 : parseInt(e.target.value);
-							console.log("enter")
 							if(inputQty > params.row.remainingQty) {
-								console.log("enter if")
 								e.target.value = params.row.remainingQty;
 							}
 							if(!e.target.value || parseInt(e.target.value) <= 0) {
@@ -110,6 +108,7 @@ export default function Home() {
 	const [rawProducts, setRawProducts] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
 	const [selectedProducts, setSelectedProducts] = useState([]);
+	const tempSelectedProductsIds = new Set();
 
 	const [refreshCount, setRefreshCount] = useState(0);
 
@@ -137,30 +136,33 @@ export default function Home() {
 		debouncedSearch(e.target.value);
 	};
 
-	const handleSubmit = async () => {};
+	const handleSubmit = async () => {
+		console.log("This is box submit function")
+		console.log(selectedProducts);
+	};
 
 
 	const handleSelectProduct = (data: any, inputQty: string) => {
 		const qty = isNaN(parseInt(inputQty)) ? 1 : parseInt(inputQty);
-		console.log(qty)
-		console.log(data);
-		// @ts-ignore
-		setSelectedProducts((prev: any[]) => ([...prev,  data]));
+		data.inputQty = qty;
+
+		const isExist = selectedProducts.find((row: any) => row.id === data.id);
+		console.log(isExist);
+
+		//@ts-ignore
+		setSelectedProducts((prev) => [...prev, data]);
 		const filtered = rawProducts.filter((row : any) => {
 			return matchStrings(row.shippingAddress, data.shippingAddress) && matchStrings(row.billingAddress, data.billingAddress);
 		});
-		console.log(rawProducts)
-		console.log(filtered);
 		setFilteredProducts(filtered);
 	}
 
+
+
 	const handleRemoveProduct = (data: any) => {
-		console.log(data.id);
 		// @ts-ignore
 		const filtered = selectedProducts.filter((row) => row.id !== data.id);
-		console.log(filtered);
 		setSelectedProducts(() => filtered);
-		console.log(selectedProducts);
 		if(filtered.length === 0) {
 			setFilteredProducts(rawProducts);
 		}
