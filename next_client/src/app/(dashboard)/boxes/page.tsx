@@ -147,6 +147,7 @@ export default function Home() {
 		data.inputQty = qty;
 
 		const isExist = selectedProducts.find((row: any) => row.id === data.id);
+
 		console.log(isExist);
 
 		//@ts-ignore
